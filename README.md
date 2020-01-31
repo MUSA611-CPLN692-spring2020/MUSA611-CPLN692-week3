@@ -47,6 +47,6 @@
 <sup>\*</sup>Mostly!
 
 ## Assignment
-* Complete [Week 3 Labs](lab) (Lab 2, Part 4 is an Optional Challenge)
+* Complete [Week 3 Labs](lab)
 * Review difficult concepts (this is subjective)
 * Finish week 2 assignments if necessary
