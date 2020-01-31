@@ -70,6 +70,7 @@
     }
   }
   console.log('Included:', filtered_data.length);
+  debugger;
   console.log('Excluded:', filtered_out.length);
 
   // main loop
