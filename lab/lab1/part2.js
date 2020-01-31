@@ -83,4 +83,3 @@ var filter = function(array, pred) {
  };
 
 console.log('filter success:', arraysEqual(filter([4, 11], isOdd), [11]));
-
