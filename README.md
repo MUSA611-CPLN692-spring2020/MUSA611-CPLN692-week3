@@ -5,7 +5,7 @@
 ## Week 2 Review
 
 #### Skills Review
-* Data structures
+* Data structures (arrays & objects)
 * Loops
 
 #### Homework and labs
@@ -26,12 +26,11 @@
 * Thinking functionally
   - Programs are data and its transformations
   - Functions are just transformations on data
-  - Functions as values
+  - Functions are values
 * [Lab 1](lab/lab1/)
 
 
 ### Live coding: refactoring code into functions
-* Step through the code and discuss
 * Imagine alternative code flows
 * Organize the code
 * Make code DRYer ('don't repeat yourself')
@@ -50,4 +49,4 @@
 ## Assignment
 * Complete [Week 3 Labs](lab) (Lab 2, Part 4 is an Optional Challenge)
 * Review difficult concepts (this is subjective)
-
+* Finish week 2 assignments if necessary

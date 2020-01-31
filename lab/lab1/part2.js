@@ -1,6 +1,6 @@
 /* =====================
 # Lab 1, Part 2 — Functions as Values
-Functions can be passed as values to other functions. Each exercise here builds on that theme.
+Functions that `return` can be passed as values to other functions. Each exercise here builds on that theme.
 ===================== */
 
 /* =====================
@@ -50,8 +50,11 @@ Instructions: Write a function that takes a list of numbers and returns a list w
 ===================== */
 
 var filterOutLessThan10 = function() {};
-
-console.log('filterOutLessThan10 success:', filterOutLessThan10([4, 11]) === [11]);
+// The function 'arraysEqual' (which it is your task to define) is necessary because
+// ([4] === [4]) is *false* in javascript(!!!)
+// Use google + stackoverflow to figure out how to define a function which returns true given two equal arrays
+function arraysEqual(arr1, arr2) { return false; }
+console.log('filterOutLessThan10 success:', arraysEqual([4, 11], [11]));
 
 /* =====================
 Stretch goal
