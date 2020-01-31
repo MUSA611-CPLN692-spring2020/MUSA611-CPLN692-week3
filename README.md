@@ -17,7 +17,7 @@
 #### Example leaflet application
 * In class walk-through of example application
 
-#### Section 1: Using functions (liberally!)
+#### Lab 1: Using functions (liberally!)
 * Function anatomy
   - Naming/defining functions vs calling functions
   - Providing arguments
@@ -39,7 +39,7 @@
 
 ### underscore.js
 
-##### Section 2: [Library](http://underscorejs.org/) overview
+#### Lab 2: [Library](http://underscorejs.org/) overview
 * Selecting (filtering for) elements in lists
 * `each`: No more `for` loops!<sup>\*</sup>
 * [Lab 2](lab/lab2/)
