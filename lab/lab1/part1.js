@@ -34,7 +34,7 @@ var over9000 = function(num) {
   if (over9000 > 9000) {
     return true;
   } else {
-      return false;
+    return false;
   }
 };
 
@@ -45,7 +45,9 @@ Instructions: "Write a function that returns the value of an object at a specifi
 Example: "valueAtKey({'name': 'Nathan'}, 'name') should return 'Nathan'"
 ===================== */
 
-var valueAtKey = function(obj, key) {return };
+var valueAtKey = function(obj, key) {
+  return
+};
 
 console.log('valueAtKey success:', valueAtKey({'foo': 'bar'}, 'foo') === 'bar');
 
