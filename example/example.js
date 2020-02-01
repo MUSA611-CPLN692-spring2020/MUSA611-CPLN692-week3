@@ -34,37 +34,37 @@
 
     // Check out the use of typeof here — this was not a contrived example.
     // Someone actually messed up the data entry.
-    function isHighSchool(school) {
-        if (typeof school.GRADE_ORG === 'number') {
-          return 8 < school.GRADE_LEVEL < 13;
-        } else {
-          return school.GRADE_LEVEL.toUpperCase().indexOf('HIGH') >= 0;
-        }
-    }
-
-    function isMiddleSchool(school) {
+  function isHighSchool(school) {
       if (typeof school.GRADE_ORG === 'number') {
-        return 5 < school.GRADE_LEVEL < 9;
+        return 8 < school.GRADE_LEVEL < 13;
       } else {
-        return school.GRADE_LEVEL.toUpperCase().indexOf('MID') >= 0;
+        return school.GRADE_LEVEL.toUpperCase().indexOf('HIGH') >= 0;
       }
-    }
+  }
 
-    function isElementarySchool(school) {
-      if (typeof school.GRADE_ORG === 'number') {
-        return 1 < school.GRADE_LEVEL < 6;
-      } else {
-        return school.GRADE_LEVEL.toUpperCase().indexOf('ELEM') >= 0;
-      }
+  function isMiddleSchool(school) {
+    if (typeof school.GRADE_ORG === 'number') {
+      return 5 < school.GRADE_LEVEL < 9;
+    } else {
+      return school.GRADE_LEVEL.toUpperCase().indexOf('MID') >= 0;
     }
+  }
 
-    function isKindergarten(school) {
-      if (typeof school.GRADE_ORG === 'number') {
-        return school.GRADE_LEVEL < 1;
-      } else {
-        return school.GRADE_LEVEL.toUpperCase().indexOf('K') >= 0;
-      }
+  function isElementarySchool(school) {
+    if (typeof school.GRADE_ORG === 'number') {
+      return 1 < school.GRADE_LEVEL < 6;
+    } else {
+      return school.GRADE_LEVEL.toUpperCase().indexOf('ELEM') >= 0;
     }
+  }
+
+  function isKindergarten(school) {
+    if (typeof school.GRADE_ORG === 'number') {
+      return school.GRADE_LEVEL < 1;
+    } else {
+      return school.GRADE_LEVEL.toUpperCase().indexOf('K') >= 0;
+    }
+  }
 
 
   // filter data
@@ -107,31 +107,5 @@
   }
 
   _.each(filtered_data, mapschool);
-
-
-/*
-  for (var i = 0; i < filtered_data.length - 1; i++) {
-    isOpen = filtered_data[i].ACTIVE.toUpperCase() == 'OPEN';
-    isPublic = (filtered_data[i].TYPE.toUpperCase() !== 'CHARTER' ||
-                filtered_data[i].TYPE.toUpperCase() !== 'PRIVATE');
-    meetsMinimumEnrollment = filtered_data[i].ENROLLMENT > minEnrollment;
-
-    // Constructing the styling  options for our map
-    if (isHighSchool(filtered_data[i])){
-      color = '#0000FF'; // blue
-    } else if (isMiddleSchool(filtered_data[i])) {
-      color = '#00FF00'; // green
-    } else {
-      color = '#FF0000'; //red
-    }
-
-    // The style options - note that we're using an object to define properties
-    var pathOpts = {'radius': filtered_data[i].ENROLLMENT / 30,
-                    'fillColor': color};
-    L.circleMarker([filtered_data[i].Y, filtered_data[i].X], pathOpts)
-      .bindPopup(filtered_data[i].FACILNAME_LABEL)
-      .addTo(map);
-  }
-  */
 
 })();
