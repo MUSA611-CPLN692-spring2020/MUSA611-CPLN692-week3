@@ -43,6 +43,7 @@
 
     // Check out the use of typeof here — this was not a contrived example.
     // Someone actually messed up the data entry
+    // build a function if is middle school or what not . give it a has_thing function 
     if (typeof schools[i].GRADE_ORG === 'number') {  // if number
       schools[i].HAS_KINDERGARTEN = schools[i].GRADE_LEVEL < 1;
       schools[i].HAS_ELEMENTARY = 1 < schools[i].GRADE_LEVEL < 6;
@@ -56,7 +57,7 @@
     }
   }
 
-  // filter data
+  // filter data use _.filter ?
   var filtered_data = [];
   var filtered_out = [];
   for (var i = 0; i < schools.length - 1; i++) {
@@ -84,6 +85,7 @@
   console.log('Excluded:', filtered_out.length);
 
   // main loop
+  // try _each or _map
   var color;
   for (var i = 0; i < filtered_data.length - 1; i++) {
     isOpen = filtered_data[i].ACTIVE.toUpperCase() == 'OPEN';

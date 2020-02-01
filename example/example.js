@@ -110,3 +110,6 @@
     }
 }  where pred is a function defined to check a condition */
 
+// _each does not modify the array, only _map does. map and each are different functions 
+// becuase each 
+
