@@ -60,7 +60,9 @@
     return obj;
   };
 
-  data = _.map(data, makeNice);
+  data = _.map(schools, makeNice);
+
+  // console.log('data[0]:', data[0]);
 
   var isGood = function(school){
     isOpen = school.ACTIVE.toUpperCase() == 'OPEN';
@@ -86,7 +88,9 @@
   console.log('Included:', filtered_data.length);
   console.log('Excluded:', filtered_out.length);
 
-  var plotSchool = function(school, map){
+  // console.log('filtered_data[0]:', filtered_data[0]);
+
+  var plotSchool = function(school, index, list) {
     // Constructing the styling  options for our map
     if (school.HAS_HIGH_SCHOOL){
       color = '#0000FF';
@@ -98,11 +102,12 @@
     // The style options
     var pathOpts = {'radius': school.ENROLLMENT / 30,
                     'fillColor': color};
+    // console.log("[school.Y, school.X]: ", [school.Y, school.X]);
     L.circleMarker([school.Y, school.X], pathOpts)
       .bindPopup(school.FACILNAME_LABEL)
       .addTo(map);
   };
 
-  _.invoke(filtered_data, plotSchool, map);
+  _.each(filtered_data, plotSchool);
 
 })();
