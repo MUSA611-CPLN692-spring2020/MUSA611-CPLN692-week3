@@ -27,7 +27,32 @@ Calculate the value by using _.countBy and set your answer to variable "largeSta
 ===================== */
 
 var data = bikeArrayClean;
+var obj = function (num) {
+  for (i=0; i < data.length; i++)
+  return num = data[i][3]
+}
 
-var largeStationList;
+var list = function (obj) {
+  var obj = data[i][3]
+  for (i = 0; i < data.length; i++)
+  {if (obj < 20){
+    list = data.splice(obj)
+  }
+  return list
+}
+}
+/*
+var largeStationList = _.filter (data, function (num){
+  var num = data[3];
+  for (i=0; i < data.length; i++){
+    return num >20
+    }
+  return data
+})
 
-var largeStationCount;
+var largeStationCount = _.countBy (largeStationList, function(num) {
+  return num > 20 ? 'yes': 'no';
+})
+*/
+
+//_.arraysEqual
