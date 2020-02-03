@@ -7,6 +7,24 @@ Instructions: "Write a function that adds one to the number provided"
 Example: "plusOne(2) should return 3"
 ===================== */
 
+/* // NOTE:
+
+var addOne = function (num) { return num + 1}
+num(1) // 2
+
+var returnAddFunction(num1) {
+var theFunction = function(num2) {
+return num1+num2
+}
+return theFunction
+}
+returnAddFunction(5)(2) //7
+///////////////
+var plus5 = returnAddFunction(5)
+plus5(2) //7
+
+*/
+
 var plusOne = function(num) {
   return num + 1
 };
