@@ -30,7 +30,7 @@
   // Filter according to enrollment that is greater than this variable:
   var minEnrollment = 300;
 
-
+/*
   // clean the data
   for (var i = 0; i < schools.length; i++) {
     // If we have '19104 - 1234', splitting and taking the first (0th) element
@@ -54,7 +54,29 @@
       schools[i].HAS_MIDDLE_SCHOOL = schools[i].GRADE_LEVEL.toUpperCase().indexOf('MID') >= 0;
       schools[i].HAS_HIGH_SCHOOL = schools[i].GRADE_LEVEL.toUpperCase().indexOf('HIGH') >= 0;
     }
+  } */
+
+var schools2 = _.map(schools, function(eachSchool) {
+  if (typeof eachSchool.ZIPCODE === 'string') {
+    var split = eachSchool.ZIPCODE.split(' ');
+    var normalized_zip = parseInt(split[0]);
+    eachSchool.ZIPCODE = normalized_zip;
   }
+  if (typeof eachSchool.GRADE_ORG === 'number') {
+    eachSchool.HAS_KINDERGARTEN = eachSchool.GRADE_LEVEL < 1;
+    eachSchool.HAS_ELEMENTARY = 1 < eachSchool.GRADE_LEVEL < 6;
+    eachSchool.HAS_MIDDLE_SCHOOL = 5 < eachSchool.GRADE_LEVEL < 9;
+    eachSchool.HAS_HIGH_SCHOOL = 8 < eachSchool.GRADE_LEVEL < 13;
+  } else {
+    eachSchool.HAS_KINDERGARTEN = eachSchool.GRADE_LEVEL.toUpperCase().indexOf('K') >= 0;
+    eachSchool.HAS_ELEMENTARY = eachSchool.GRADE_LEVEL.toUpperCase().indexOf('ELEM') >= 0;
+    eachSchool.HAS_MIDDLE_SCHOOL = eachSchool.GRADE_LEVEL.toUpperCase().indexOf('MID') >= 0;
+    eachSchool.HAS_HIGH_SCHOOL = eachSchool.GRADE_LEVEL.toUpperCase().indexOf('HIGH') >= 0;
+  }
+  return eachSchool
+})
+
+console.log(schools2)
 
   // // filter data
   // var filtered_data = [];
@@ -87,7 +109,7 @@
 /////////////////////
 //// NEW version ////
 /////////////////////
-  var filtered_data2 = _.filter(schools, function(eachSchool) {
+  var filtered_data2 = _.filter(schools2, function(eachSchool) {
     isOpen = eachSchool.ACTIVE.toUpperCase() == 'OPEN';
     isPublic = (eachSchool.TYPE.toUpperCase() !== 'CHARTER' ||
                 eachSchool.TYPE.toUpperCase() !== 'PRIVATE');
@@ -105,10 +127,11 @@
 
   })
 
-  var filtered_out2 = _.difference(schools, filtered_data2)
+  var filtered_out2 = _.difference(schools2, filtered_data2)
 
   console.log('Included:', filtered_data2.length);
   console.log('Excluded:', filtered_out2.length);
+
 
   // main loop
   var color;
