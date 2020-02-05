@@ -132,7 +132,7 @@ console.log(schools2)
   console.log('Included:', filtered_data2.length);
   console.log('Excluded:', filtered_out2.length);
 
-
+/*
   // main loop
   var color;
   for (var i = 0; i < filtered_data2.length; i++) {
@@ -152,6 +152,22 @@ console.log(schools2)
     L.circleMarker([filtered_data2[i].Y, filtered_data2[i].X], pathOpts)
       .bindPopup(filtered_data2[i].FACILNAME_LABEL)
       .addTo(map);
-  }
+  } */
+
+  _.each(filtered_data2, function(eachSchool) {
+    var color
+    if (eachSchool.HAS_HIGH_SCHOOL){
+      color = '#0000FF'; // blue
+    } else if (eachSchool.HAS_MIDDLE_SCHOOL) {
+      color = '#00FF00'; // green
+    } else {
+      color = '#FF0000'; //red
+    }
+    var pathOpts = {'radius': eachSchool.ENROLLMENT / 30,
+                    'fillColor': color};
+   L.circleMarker([eachSchool.Y, eachSchool.X], pathOpts)
+     .bindPopup(eachSchool.FACILNAME_LABEL)
+     .addTo(map);
+  })
 
 })();
