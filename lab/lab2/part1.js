@@ -21,6 +21,8 @@ What is the first game in Jeff's list?
 
 var query1;
 
+query1 = _.first(jeffGameList)
+
 console.log('What is the first game in Jeff\'s list?', query1);
 
 /* =====================
@@ -28,6 +30,8 @@ What are all of the games except for the first game in Jeff's list?
 ===================== */
 
 var query2;
+
+query2 = _.last(jeffGameList,jeffGameList.length - 1)
 
 console.log('What are all of the games except for the first game in Jeff\'s list?', query2);
 
@@ -37,6 +41,8 @@ What is the last game in Nathan's list?
 
 var query3;
 
+query3 = _.last(nathanGameList)
+
 console.log('What is the last game in Nathan\'s list?', query3);
 
 /* =====================
@@ -44,6 +50,8 @@ What are all of the games in Nathan's list except for the last?
 ===================== */
 
 var query4;
+
+query4= _.first(nathanGameList,nathanGameList.length - 1)
 
 console.log('What are all of the games in Nathan\'s list except for the last?', query4);
 
@@ -53,6 +61,8 @@ What would Nathan's game list look like if he sold "catan"?
 
 var query5;
 
+query5 = _.reject(nathanGameList, function(game){ return game == "catan";})
+
 console.log('What would Nathan\'s game list look like if he sold "catan"?', query5);
 
 /* =====================
@@ -60,6 +70,8 @@ If Nathan and Jeff play a board game, what are their options? This should be a l
 ===================== */
 
 var query6;
+
+query6 = _.
 
 console.log('If Nathan and Jeff play a board game, what are their options? This should be a list of all games owned by Jeff or Nathan, with no duplicates.', query6);
 

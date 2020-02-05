@@ -30,4 +30,12 @@ var data = bikeArrayClean;
 
 var largeStationList;
 
+largeStationList = _.filter(data, function(arr){ return arr[3]>20; });
+
+console.log(largeStationList);
+
 var largeStationCount;
+ 
+largeStationCount = _.countBy(largeStationList, function(arr){ return arr[3]>20; });
+
+console.log("Total Number of Large Stations:"+largeStationCount.true);
