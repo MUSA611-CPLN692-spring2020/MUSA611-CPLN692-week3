@@ -79,13 +79,32 @@ console.log('isOdd success:', isOdd(4) === false);
 /* =====================
 Instructions: Write a function that takes a list of numbers and returns a list with only numbers above 10
 ===================== */
-var arraysEqual = function() {}
+var filterOutLessThan10 = function(arr) {
+  var final = [];
+  for (var i = 0; i < arr.length; i = i + 1) {
+    if (arr[i] > 10) {
+      final.push(arr[i]);
+    }
+  }
+  return final;
+};
 
-var filterOutLessThan10 = function() {}
+function arraysEqual(arr1, arr2) {
+  for (var i = 0; i < arr1.length; i++) {
+    if (arr1[i] === arr2[i]) {
+      count = 1;
+    }
+      else count = 0;
+    }
+    if (count === 1) {
+      return true;
+    }
+}
+
 // The function 'arraysEqual' (which it is your task to define) is necessary because
 // ([4] === [4]) is *false* in javascript(!!!)
 // Use google + stackoverflow to figure out how to define a function which returns true given two equal arrays
-function arraysEqual(arr1, arr2) { return false; }
+
 console.log('filterOutLessThan10 success:', arraysEqual(filterOutLessThan10([4, 11]), [11]));
 
 /* =====================
