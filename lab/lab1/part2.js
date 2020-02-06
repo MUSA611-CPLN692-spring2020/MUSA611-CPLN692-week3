@@ -90,15 +90,12 @@ var filterOutLessThan10 = function(arr) {
 };
 
 function arraysEqual(arr1, arr2) {
-  for (var i = 0; i < arr1.length; i++) {
-    if (arr1[i] === arr2[i]) {
-      count = 1;
+  for (var i = 0; i < arr1.length; i = i+1) {
+    if (arr1[i] !== arr2[i]) {
+      return false;
     }
-      else count = 0;
-    }
-    if (count === 1) {
-      return true;
-    }
+    return true;
+  }
 }
 
 // The function 'arraysEqual' (which it is your task to define) is necessary because
