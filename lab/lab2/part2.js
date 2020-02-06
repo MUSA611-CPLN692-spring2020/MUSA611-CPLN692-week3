@@ -38,4 +38,4 @@ var largeStationCount;
  
 largeStationCount = _.countBy(largeStationList, function(arr){ return arr[3]>20; });
 
-console.log("Total Number of Large Stations:"+largeStationCount.true);
+console.log("Total Number of Large Stations:"+ largeStationCount.true);

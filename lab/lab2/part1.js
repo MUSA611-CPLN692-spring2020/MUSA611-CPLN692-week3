@@ -71,7 +71,7 @@ If Nathan and Jeff play a board game, what are their options? This should be a l
 
 var query6;
 
-query6 = _.
+query6 = _.union(nathanGameList,jeffGameList)
 
 console.log('If Nathan and Jeff play a board game, what are their options? This should be a list of all games owned by Jeff or Nathan, with no duplicates.', query6);
 
@@ -81,6 +81,8 @@ Which games are owned by both Jeff and Nathan?
 
 var query7;
 
+query7 = _.intersection(nathanGameList,jeffGameList)
+
 console.log('Which games are owned by both Jeff and Nathan', query7);
 
 /* =====================
@@ -88,5 +90,7 @@ Which games are exclusive to collections? In other words, only owned by either J
 ===================== */
 
 var query8;
+
+query8 = _.union(_.difference(jeffGameList,nathanGameList),_.difference(nathanGameList,jeffGameList));
 
 console.log('Which games are exclusive to one collection? In other words, only owned by either Jeff or Nathan (but not both!).', query8);
