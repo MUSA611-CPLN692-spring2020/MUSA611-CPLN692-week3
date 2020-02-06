@@ -7,7 +7,9 @@ Functions that `return` can be passed as values to other functions. Each exercis
 Instructions: Write a function that *always* returns the number 1.
 ===================== */
 
-var justOne = function() {};
+var justOne = function() {
+  return 1;
+};
 
 console.log('justOne success:', justOne() === 1);
 
@@ -15,7 +17,14 @@ console.log('justOne success:', justOne() === 1);
 Instructions: Write a function that returns true if a number is even.
 ===================== */
 
-var isEven = function() {};
+var isEven = function(num) {
+  if (num % 2 === 0) {
+    return true;
+  }
+  else {
+    return false;
+  }
+};
 
 console.log('isEven success:', isEven(2) === true && isEven(3) === false);
 
@@ -66,4 +75,3 @@ Instructions: Let's bring it all together. Write a function that filters a list 
 var filter = function(array, func) {};
 
 console.log('filter success:', filter([4, 11], isOdd) === [11]);
-
