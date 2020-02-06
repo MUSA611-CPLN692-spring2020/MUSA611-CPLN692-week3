@@ -33,7 +33,9 @@ Instructions: Write a function that *always* returns false.
               Use functions "justOne" and "isEven" somehow in the definition.
 ===================== */
 
-var justFalse = function() {};
+var justFalse = function(justOne, isEven) {
+
+};
 
 console.log('justFalse success:', justFalse() === false);
 
@@ -63,7 +65,7 @@ var filterOutLessThan10 = function() {};
 // ([4] === [4]) is *false* in javascript(!!!)
 // Use google + stackoverflow to figure out how to define a function which returns true given two equal arrays
 function arraysEqual(arr1, arr2) { return false; }
-console.log('filterOutLessThan10 success:', arraysEqual([4, 11], [11]));
+console.log('filterOutLessThan10 success:', arraysEqual(filterOutLessThan10([4, 11]), [11]));
 
 /* =====================
 Stretch goal
@@ -74,4 +76,4 @@ Instructions: Let's bring it all together. Write a function that filters a list 
 
 var filter = function(array, func) {};
 
-console.log('filter success:', filter([4, 11], isOdd) === [11]);
+console.log('filter success:', arraysEqual(filter([4, 11], isOdd), [11]));
