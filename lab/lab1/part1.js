@@ -46,7 +46,8 @@ Example: "valueAtKey({'name': 'Nathan'}, 'name') should return 'Nathan'"
 ===================== */
 
 var valueAtKey = function(obj, key) {
-  return
+  var value = obj[key];
+  return value;
 };
 
 console.log('valueAtKey success:', valueAtKey({'foo': 'bar'}, 'foo') === 'bar');
@@ -57,7 +58,10 @@ Example: "y(0, 0, 0) should return 0; y(1, 1, 1) should return 2"
 Remember: The standard mathematical expression for such a function is y=mx+b
 ===================== */
 
-var y = function() {};
+var y = function(m, x, b) {
+  y = m*x+b;
+  return y;
+};
 
 console.log('y success:', y(12, 1, 12) === 24);
 
@@ -66,6 +70,14 @@ Instructions: "Write a function which counts the number of times a value occurs 
 Example: "countItem(['a', 'b', 'a'], 'a') should return 2"
 ===================== */
 
-var countItem = function() {};
+var countItem = function(array, value) {
+  var count = 0;
+  for (var i = 0; i < array.length; i = i + 1) {
+    if (array[i] === value) {
+      count = count + 1;
+    }
+  }
+  return count;
+};
 
 console.log('countItem success:', countItem([1, 2, 3, 4, 5, 4, 4], 4) === 3);
