@@ -33,7 +33,13 @@ Instructions: Write a function that *always* returns false.
               Use functions "justOne" and "isEven" somehow in the definition.
 ===================== */
 
-var justFalse = function(justOne, isEven) {
+var justFalse = function() {
+  if (isEven(justOne()) === true) {
+  return true;
+}
+else {
+    return false;
+  }
 
 };
 
@@ -43,7 +49,14 @@ console.log('justFalse success:', justFalse() === false);
 Instructions: Write a function that takes a boolean value and returns its opposite.
 ===================== */
 
-var not = function() {};
+var not = function(val) {
+  if (val === true) {
+    return false;
+  }
+  else {
+    return true;
+  }
+};
 
 console.log('not success:', not(true) === false);
 
@@ -52,15 +65,23 @@ Instructions: Write a function that returns true if a number is odd
               Use functions "isEven" and "not" somehow in the definition.
 ===================== */
 
-var isOdd = function() {};
+var isOdd = function(integer) {
+    if (not(isEven(integer)) === true){
+      return true;
+    }
+    else {
+      return false;
+    }
+};
 
 console.log('isOdd success:', isOdd(4) === false);
 
 /* =====================
 Instructions: Write a function that takes a list of numbers and returns a list with only numbers above 10
 ===================== */
+var arraysEqual = function() {}
 
-var filterOutLessThan10 = function() {};
+var filterOutLessThan10 = function() {}
 // The function 'arraysEqual' (which it is your task to define) is necessary because
 // ([4] === [4]) is *false* in javascript(!!!)
 // Use google + stackoverflow to figure out how to define a function which returns true given two equal arrays
