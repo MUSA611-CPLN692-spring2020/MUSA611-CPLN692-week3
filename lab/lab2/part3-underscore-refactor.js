@@ -12,18 +12,6 @@
     ext: 'png'
   }).addTo(map);
 
-  /* =====================
-
-  # Lab 2, Part 3
-
-  ## Introduction
-
-    You've already seen this file organized and refactored. In this lab, you will
-    try to refactor this code to be cleaner and clearer - you should use the
-    utilities and functions provided by underscore.js. Eliminate loops where possible.
-
-  ===================== */
-
   // Mock user input
   // Filter out according to these zip codes:
   var acceptedZipcodes = [19106, 19107, 19124, 19111, 19118];
@@ -31,80 +19,81 @@
   var minEnrollment = 300;
 
 
-  // clean data
-  for (var i = 0; i < schools.length - 1; i++) {
-    // If we have '19104 - 1234', splitting and taking the first (0th) element
-    // as an integer should yield a zip in the format above
-    if (typeof schools[i].ZIPCODE === 'string') {
-      split = schools[i].ZIPCODE.split(' ');
-      normalized_zip = parseInt(split[0]);
-      schools[i].ZIPCODE = normalized_zip;
-    }
+  // clean the data
+  var splitzip = function(row) {
+    split = row.ZIPCODE.split(' ');
+    normalized_zip = parseInt(split[0]);
+    row.ZIPCODE = normalized_zip;
+    return row;
+  };
+  _.map(_.filter(schools, function(row){return typeof row.ZIPCODE == 'string';}), splitzip);
 
-    // Check out the use of typeof here — this was not a contrived example.
-    // Someone actually messed up the data entry
-    if (typeof schools[i].GRADE_ORG === 'number') {  // if number
-      schools[i].HAS_KINDERGARTEN = schools[i].GRADE_LEVEL < 1;
-      schools[i].HAS_ELEMENTARY = 1 < schools[i].GRADE_LEVEL < 6;
-      schools[i].HAS_MIDDLE_SCHOOL = 5 < schools[i].GRADE_LEVEL < 9;
-      schools[i].HAS_HIGH_SCHOOL = 8 < schools[i].GRADE_LEVEL < 13;
-    } else {  // otherwise (in case of string)
-      schools[i].HAS_KINDERGARTEN = schools[i].GRADE_LEVEL.toUpperCase().indexOf('K') >= 0;
-      schools[i].HAS_ELEMENTARY = schools[i].GRADE_LEVEL.toUpperCase().indexOf('ELEM') >= 0;
-      schools[i].HAS_MIDDLE_SCHOOL = schools[i].GRADE_LEVEL.toUpperCase().indexOf('MID') >= 0;
-      schools[i].HAS_HIGH_SCHOOL = schools[i].GRADE_LEVEL.toUpperCase().indexOf('HIGH') >= 0;
-    }
-  }
+  var schooltype1 = function(row) {
+    row.HAS_KINDERGARTEN = row.GRADE_LEVEL < 1;
+    row.HAS_ELEMENTARY = _.contains(_.range(1,7), row.GRADE_LEVEL);
+    row.HAS_MIDDLE_SCHOOL = _.contains(_.range(5,10), row.GRADE_LEVEL);
+    row.HAS_HIGH_SCHOOL = _.contains(_.range(8,14), row.GRADE_LEVEL);
+  };
+
+  var schooltype2 = function(row) {
+    row.HAS_KINDERGARTEN = _.contains(row.GRADE_LEVEL.toUpperCase(),'K');
+    row.HAS_ELEMENTARY = _.contains(row.GRADE_LEVEL.toUpperCase(),'ELEM');
+    row.HAS_MIDDLE_SCHOOL = _.contains(row.GRADE_LEVEL.toUpperCase(),'MID');
+    row.HAS_HIGH_SCHOOL = _.contains(row.GRADE_LEVEL.toUpperCase(),'HIGH');
+  };
+
+  _.map(_.filter(schools, function(row){return typeof row.GRADE_ORG === 'number';}), schooltype1);
+  _.map(_.filter(schools, function(row){return typeof row.GRADE_ORG !== 'number';}), schooltype2);
 
   // filter data
   var filtered_data = [];
   var filtered_out = [];
-  for (var i = 0; i < schools.length - 1; i++) {
-    isOpen = schools[i].ACTIVE.toUpperCase() == 'OPEN';
-    isPublic = (schools[i].TYPE.toUpperCase() !== 'CHARTER' ||
-                schools[i].TYPE.toUpperCase() !== 'PRIVATE');
-    isSchool = (schools[i].HAS_KINDERGARTEN ||
-                schools[i].HAS_ELEMENTARY ||
-                schools[i].HAS_MIDDLE_SCHOOL ||
-                schools[i].HAS_HIGH_SCHOOL);
-    meetsMinimumEnrollment = schools[i].ENROLLMENT > minEnrollment;
-    meetsZipCondition = acceptedZipcodes.indexOf(schools[i].ZIPCODE) >= 0;
-    filter_condition = (isOpen &&
-                        isSchool &&
-                        meetsMinimumEnrollment &&
-                        !meetsZipCondition);
 
+  var schooltype3 = function(row) {
+    isOpen = row.ACTIVE.toUpperCase() == 'OPEN';
+    isPublic = _.some([row.TYPE.toUpperCase() !== 'CHARTER',
+                row.TYPE.toUpperCase() !== 'PRIVATE']);
+    isSchool = _.some([row.HAS_KINDERGARTEN,row.HAS_ELEMENTARY,row.HAS_MIDDLE_SCHOOL,row.HAS_HIGH_SCHOOL]);
+    meetsMinimumEnrollment = row.ENROLLMENT > minEnrollment;
+    meetsZipCondition = _.contains(acceptedZipcodes,row.ZIPCODE);
+    filter_condition = _.every([isOpen,isSchool,meetsMinimumEnrollment,!meetsZipCondition]);
     if (filter_condition) {
-      filtered_data.push(schools[i]);
+      filtered_data.push(row);
     } else {
-      filtered_out.push(schools[i]);
+      filtered_out.push(row);
     }
-  }
+  };
+
+  _.each(schools, schooltype3);
+
   console.log('Included:', filtered_data.length);
   console.log('Excluded:', filtered_out.length);
 
   // main loop
   var color;
-  for (var i = 0; i < filtered_data.length - 1; i++) {
-    isOpen = filtered_data[i].ACTIVE.toUpperCase() == 'OPEN';
-    isPublic = (filtered_data[i].TYPE.toUpperCase() !== 'CHARTER' ||
-                filtered_data[i].TYPE.toUpperCase() !== 'PRIVATE');
-    meetsMinimumEnrollment = filtered_data[i].ENROLLMENT > minEnrollment;
+
+  var schooltype4 = function(row){
+    isOpen = row.ACTIVE.toUpperCase() == 'OPEN';
+    isPublic = _.some([row.TYPE.toUpperCase() !== 'CHARTER',row.TYPE.toUpperCase() !== 'PRIVATE']);
+    meetsMinimumEnrollment = row.ENROLLMENT > minEnrollment;
 
     // Constructing the styling  options for our map
-    if (filtered_data[i].HAS_HIGH_SCHOOL){
-      color = '#0000FF';
-    } else if (filtered_data[i].HAS_MIDDLE_SCHOOL) {
-      color = '#00FF00';
+    if (row.HAS_HIGH_SCHOOL){
+      color = '#0000FF'; // blue
+    } else if (row.HAS_MIDDLE_SCHOOL) {
+      color = '#00FF00'; // green
     } else {
-      color = '##FF0000';
+      color = '#FF0000'; //red
     }
-    // The style options
-    var pathOpts = {'radius': filtered_data[i].ENROLLMENT / 30,
+
+    // The style options - note that we're using an object to define properties
+    var pathOpts = {'radius': row.ENROLLMENT / 30,
                     'fillColor': color};
-    L.circleMarker([filtered_data[i].Y, filtered_data[i].X], pathOpts)
-      .bindPopup(filtered_data[i].FACILNAME_LABEL)
+    L.circleMarker([row.Y, row.X], pathOpts)
+      .bindPopup(row.FACILNAME_LABEL)
       .addTo(map);
-  }
+  };
+
+  _.each(filtered_data, schooltype4);
 
 })();
