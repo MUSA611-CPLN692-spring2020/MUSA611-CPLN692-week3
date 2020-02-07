@@ -62,7 +62,7 @@
     filter_condition = (isOpen &&
                         isSchool &&
                         meetsMinimumEnrollment &&
-                        !meetsZipCondition);
+                        !meetsZipCondition); // shouldn't the ! be removed? 
 
     if (filter_condition) {
       filtered_data.push(schools[i]);
