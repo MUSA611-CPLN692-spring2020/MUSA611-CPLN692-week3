@@ -31,6 +31,7 @@
 
     // Check out the use of typeof here — this was not a contrived example.
     // Someone actually messed up the data entry.
+    // 写个function完成下面的功能，而不用给每个学校赋值
     if (typeof schools[i].GRADE_ORG === 'number') {
       schools[i].HAS_KINDERGARTEN = schools[i].GRADE_LEVEL < 1;
       schools[i].HAS_ELEMENTARY = 1 < schools[i].GRADE_LEVEL < 6;
