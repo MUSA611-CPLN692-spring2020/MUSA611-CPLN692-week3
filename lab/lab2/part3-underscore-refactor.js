@@ -27,6 +27,62 @@
   // Mock user input
   // Filter out according to these zip codes:
   var acceptedZipcodes = [19106, 19107, 19124, 19111, 19118];
+  var input = '12345 - 123';
+  var split = '12345 - 123'.split(' ');
+  var firstSplit = split[0];
+  var firstSplitAsNumber = parseInt(firstSplit);
+
+  var fixZipCodes = function(x) {
+  if (typeof x == "string") {
+    var split = x.split(' ');
+    var firstSplit = split[0];
+    var firstSplitAsNumber = parseInt(firstSplit);
+    return firstSplitAsNumber;
+  } else {
+    return x;
+  }
+};
+
+_.map(['12345 - 123', 54321, '23412 - 342'], fixZipCodes);
+
+
+var hasKindergarten = function(school) {
+  if (typeof school.GRADE_ORG == 'number') {
+    return school.GRADE_LEVEL < 1;
+  } else {
+    return school.GRADE_LEVEL.toUpperCase().indexOf('K') >= 0;
+  }
+};
+
+var hasKelementary = function(school) {
+  if (typeof school.GRADE_ORG == 'number') {
+    return school.GRADE_LEVEL < 6;
+  } else {
+    return school.GRADE_LEVEL.toUpperCase().indexOf('K') >= 0;
+  }
+};
+
+var hasmiddleschool = function(school) {
+  if (typeof school.GRADE_ORG == 'number') {
+    return school.GRADE_LEVEL < 9;
+  } else {
+    return school.GRADE_LEVEL.toUpperCase().indexOf('K') >= 0;
+  }
+};
+
+
+var hashighschool = function(school) {
+  if (typeof school.GRADE_ORG == 'number') {
+    return school.GRADE_LEVEL < 13;
+  } else {
+    return school.GRADE_LEVEL.toUpperCase().indexOf('K') >= 0;
+  }
+};
+
+
+
+
+
   // Filter according to enrollment that is greater than this variable:
   var minEnrollment = 300;
 
