@@ -31,6 +31,7 @@
 
     // Check out the use of typeof here — this was not a contrived example.
     // Someone actually messed up the data entry.
+    //define a function to get rid of the repeated lines below! do the same thing with simpler and readable codes.
     if (typeof schools[i].GRADE_ORG === 'number') {
       schools[i].HAS_KINDERGARTEN = schools[i].GRADE_LEVEL < 1;
       schools[i].HAS_ELEMENTARY = 1 < schools[i].GRADE_LEVEL < 6;
@@ -47,6 +48,7 @@
   // filter data
   var filtered_data = [];
   var filtered_out = [];
+  //use filter and other underscore to get rid of the loop below
   for (var i = 0; i < schools.length - 1; i++) {
     // These really should be predicates!
     isOpen = schools[i].ACTIVE.toUpperCase() == 'OPEN';
