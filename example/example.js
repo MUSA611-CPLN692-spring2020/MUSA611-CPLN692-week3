@@ -20,7 +20,8 @@
 
 
   // clean the data
-  for (var i = 0; i < schools.length - 1; i++) {
+  for (var i = 0; i < schools.length; i++) {
+    // debuggerAdd a deubbger as a break point to test! 
     // If we have '19104 - 1234', splitting and taking the first (0th) element
     // as an integer should yield a zip in the format above
     if (typeof schools[i].ZIPCODE === 'string') {
@@ -61,7 +62,7 @@
     filter_condition = (isOpen &&
                         isSchool &&
                         meetsMinimumEnrollment &&
-                        !meetsZipCondition);
+                        !meetsZipCondition); // shouldn't the ! be removed? 
 
     if (filter_condition) {
       filtered_data.push(schools[i]);
@@ -98,3 +99,17 @@
   }
 
 })();
+
+// useful stuff!!//
+/*var filter=function(arr,pred){
+    var holder=[]
+    for (var i=0; i<arr.length; i++){
+        if(pred(arr)){
+            holder.push(arr[i])
+        }
+    }
+}  where pred is a function defined to check a condition */
+
+// _each does not modify the array, only _map does. map and each are different functions 
+// becuase each 
+

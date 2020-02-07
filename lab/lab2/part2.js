@@ -20,6 +20,7 @@ variable "largeStationList".
 
 Reminder: you can (and should) use `console.log` to test your solutions!
 
+
 ## Task 2
 
 Let's say we only care about the final count of bike share locations with more than 20 docks.
@@ -28,6 +29,9 @@ Calculate the value by using _.countBy and set your answer to variable "largeSta
 
 var data = bikeArrayClean;
 
-var largeStationList;
+var largeStationList = _.unzip(_.filter(bikeArrayClean, function(entry){return entry[3]>20}))[2];
+console.log(largeStationList)
 
-var largeStationCount;
+var largeStationCount = _.countBy(bikeArrayClean, function(entry){return entry[3]>20 ? 'true': 'false'})['true'];
+console.log(largeStationCount)
+
