@@ -7,7 +7,7 @@ Instructions: "Write a function that adds one to the number provided"
 Example: "plusOne(2) should return 3"
 ===================== */
 
-var plusOne = function(num) { return num+1};
+var plusOne = function(num) { return (num+1)};
 
 console.log('plusOne success:', plusOne(99) === 100);
 
@@ -55,10 +55,11 @@ Example: "countItem(['a', 'b', 'a'], 'a') should return 2"
 ===================== */
 
 var countItem = function(list_1, x) {
-  int count=0;
+  count=0;
   for(i=0; i<list_1.length; i++){
-    if (list_1[i]==x){count++}
+    if (list_1[i]==x){count++};
   }
+  return count
 };
 
 console.log('countItem success:', countItem([1, 2, 3, 4, 5, 4, 4], 4) === 3);
