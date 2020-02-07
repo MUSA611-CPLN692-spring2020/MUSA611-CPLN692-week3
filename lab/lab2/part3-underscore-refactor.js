@@ -31,7 +31,6 @@
   // Filter according to enrollment that is greater than this variable:
   var minEnrollment = 300;
 
-
   // clean data
   for (var i = 0; i < schools.length - 1; i++) {
     // If we have '19104 - 1234', splitting and taking the first (0th) element
@@ -72,7 +71,7 @@
       // filter by enrolledment numbers 
       meetsZipCondition = acceptedZipcodes.indexOf(entry.ZIPCODE) >= 0;
 
-      return isOpen && isSchool && meetsMinimumEnrollment && meetsZipCondition
+      return isOpen && isSchool && meetsMinimumEnrollment && !meetsZipCondition
     }
 
   filtered_data = _.filter(schools, predicate);
