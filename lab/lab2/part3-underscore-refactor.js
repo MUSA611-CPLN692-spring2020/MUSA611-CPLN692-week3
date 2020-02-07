@@ -54,6 +54,32 @@ var hasKindergarten = function(school) {
   }
 };
 
+var hasKelementary = function(school) {
+  if (typeof school.GRADE_ORG == 'number') {
+    return school.GRADE_LEVEL < 6;
+  } else {
+    return school.GRADE_LEVEL.toUpperCase().indexOf('K') >= 0;
+  }
+};
+
+var hasmiddleschool = function(school) {
+  if (typeof school.GRADE_ORG == 'number') {
+    return school.GRADE_LEVEL < 9;
+  } else {
+    return school.GRADE_LEVEL.toUpperCase().indexOf('K') >= 0;
+  }
+};
+
+
+var hashighschool = function(school) {
+  if (typeof school.GRADE_ORG == 'number') {
+    return school.GRADE_LEVEL < 13;
+  } else {
+    return school.GRADE_LEVEL.toUpperCase().indexOf('K') >= 0;
+  }
+};
+
+
 
 
 
