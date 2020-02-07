@@ -62,8 +62,8 @@ Instructions: "Write a function that returns the value of an object at a specifi
 Example: "valueAtKey({'name': 'Nathan'}, 'name') should return 'Nathan'"
 ===================== */
 
-var valueAtKey = function() {
-
+var valueAtKey = function(key,name) {
+  return key[name]
 };
 
 console.log('valueAtKey success:', valueAtKey({'foo': 'bar'}, 'foo') === 'bar');
@@ -90,7 +90,7 @@ var countItem = function(num,x) {
   for (var i = 0; i < num.length; i++) {
       if (num[i] === x){
         count = count + 1
-      } 
+      }
     } return count
 };
 

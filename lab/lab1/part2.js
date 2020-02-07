@@ -7,7 +7,7 @@ Functions that `return` can be passed as values to other functions. Each exercis
 Instructions: Write a function that *always* returns the number 1.
 ===================== */
 
-var justOne = function(num) {
+var justOne = function() {
   return 1
 };
 
@@ -33,7 +33,7 @@ Instructions: Write a function that *always* returns false.
 ===================== */
 
 var justFalse = function(fal) {
-  return fal!==justOne
+  return !justOne
 };
 
 console.log('justFalse success:', justFalse() === false);
@@ -55,8 +55,8 @@ Instructions: Write a function that returns true if a number is odd
               Use functions "isEven" and "not" somehow in the definition.
 ===================== */
 
-var isOdd = function() {
-
+var isOdd = function(num) {
+   return !(isEven(num));
 };
 
 console.log('isOdd success:', isOdd(4) === false);
@@ -77,7 +77,30 @@ var filterOutLessThan10 = function(list) {
 // The function 'arraysEqual' (which it is your task to define) is necessary because
 // ([4] === [4]) is *false* in javascript(!!!)
 // Use google + stackoverflow to figure out how to define a function which returns true given two equal arrays
-function arraysEqual(arr1, arr2) { return false; }
+function arraysEqual1(arr1, arr2) {
+  if (arr1 === arr2) {
+    return true;} else if (arr1 == null || arr2 == null) {
+    return false;} else if (arr1.length != arr2.length) {
+      return false;}
+      else{
+  for (var i = 0; i < arr1.length; i++) {
+  if (arr1[i] !== arr2[i]) {
+    return false;
+      }
+    }
+  }
+return true;
+}
+
+function arraysEqual(arr1){
+  hold=[];
+  for (var i = 0; i < arr1.length; i++){
+    if(arr1[i] > 10)  {
+      hold.push(arr1[i])
+    }
+  } return hold;
+}
+
 console.log('filterOutLessThan10 success:', arraysEqual([4, 11], [11]));
 
 /* =====================
@@ -90,10 +113,11 @@ Instructions: Let's bring it all together. Write a function that filters a list 
 var filter = function(array, func) {
   var hold=[];
   for (var i = 0; i < array.length; i++){
-    if (func === 'isOdd' && array[i]%2 === 0){
+    if (func(array[i]) == true){
       hold.push(array[i]);
     }
-  } return hold
+  }
+  return hold
 };
 
 console.log('filter success:', filter([4, 11], isOdd) === [11]);
