@@ -153,8 +153,6 @@
     L.circleMarker([num.Y, num.X], pathOpts)
       .bindPopup(num.FACILNAME_LABEL)
       .addTo(map);
-
-
   });
 
 
