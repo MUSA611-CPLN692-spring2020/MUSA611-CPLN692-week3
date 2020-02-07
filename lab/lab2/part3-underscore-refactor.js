@@ -27,12 +27,25 @@
   // Mock user input
   // Filter out according to these zip codes:
   var acceptedZipcodes = [19106, 19107, 19124, 19111, 19118];
+  var filterzc = _.filter (schools, function (arr) {
+      for (var i = 0; i < schools.length; i++){
+      if  (
+           arr.ZIPCODE == '19106' || arr.ZIPCODE == '19107' ||
+           arr.ZIPCODE  == '19124' || arr.ZIPCODE  == '19111' ||
+           arr.ZIPCODE == '19118' ||
+           arr.ZIPCODE == 19106 || arr.ZIPCODE == 19107 ||
+           arr.ZIPCODE == 19124 || arr.ZIPCODE  == 19111 ||
+           arr.ZIPCODE == 19118 ) {return arr}
+           console.log(arr)}
+          })
+
+//not done
   // Filter according to enrollment that is greater than this variable:
   var minEnrollment = 300;
-
-
+/*
+  var filter = _.filter(schools, function(arr){
   // clean data
-  for (var i = 0; i < schools.length - 1; i++) {
+    for (var i = 0; i < schools.length - 1; i++) {
     // If we have '19104 - 1234', splitting and taking the first (0th) element
     // as an integer should yield a zip in the format above
     if (typeof schools[i].ZIPCODE === 'string') {
@@ -40,7 +53,6 @@
       normalized_zip = parseInt(split[0]);
       schools[i].ZIPCODE = normalized_zip;
     }
-
     // Check out the use of typeof here — this was not a contrived example.
     // Someone actually messed up the data entry
     if (typeof schools[i].GRADE_ORG === 'number') {  // if number
@@ -55,7 +67,7 @@
       schools[i].HAS_HIGH_SCHOOL = schools[i].GRADE_LEVEL.toUpperCase().indexOf('HIGH') >= 0;
     }
   }
-
+/*
   // filter data
   var filtered_data = [];
   var filtered_out = [];
@@ -84,6 +96,7 @@
   console.log('Excluded:', filtered_out.length);
 
   // main loop
+
   var color;
   for (var i = 0; i < filtered_data.length - 1; i++) {
     isOpen = filtered_data[i].ACTIVE.toUpperCase() == 'OPEN';
@@ -106,5 +119,5 @@
       .bindPopup(filtered_data[i].FACILNAME_LABEL)
       .addTo(map);
   }
-
 })();
+*/

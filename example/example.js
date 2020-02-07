@@ -28,6 +28,7 @@
       var normalized_zip = parseInt(split[0]);
       schools[i].ZIPCODE = normalized_zip;
     }
+    // could use true and false
 
     // Check out the use of typeof here — this was not a contrived example.
     // Someone actually messed up the data entry.
@@ -43,8 +44,11 @@
       schools[i].HAS_HIGH_SCHOOL = schools[i].GRADE_LEVEL.toUpperCase().indexOf('HIGH') >= 0;
     }
   }
+  // ####you could write a function here to return "true" and "false", instead of the labels that seem redundant
 
   // filter data
+  //filter out bad data through the for loop
+  //use underscore and simplify this, save often
   var filtered_data = [];
   var filtered_out = [];
   for (var i = 0; i < schools.length - 1; i++) {
