@@ -42,26 +42,63 @@
   })
 
   //function
-var schools_type = _.map(schools_clean, function(arr){
-    if (typeof arr.GRADE_ORG === 'number') {  
-      arr.HAS_KIN_ELE = arr.GRADE_LEVEL < 6;
-      arr.HAS_MIDDLE_SCHOOL = 5 < arr.GRADE_LEVEL < 9;
-      arr.HAS_HIGH_SCHOOL = 8 < arr.GRADE_LEVEL < 13;
-    } else {  
-      arr.HAS_KIN_ELE = (arr.GRADE_LEVEL.toUpperCase().indexOf('K') >= 0 || 
-                         arr.GRADE_LEVEL.toUpperCase().indexOf('ELEM') >= 0);
-      arr.HAS_MIDDLE_SCHOOL = arr.GRADE_LEVEL.toUpperCase().indexOf('MID') >= 0;
-      arr.HAS_HIGH_SCHOOL = arr.GRADE_LEVEL.toUpperCase().indexOf('HIGH') >= 0;
-    }
-    return arr;
-})
+function kindergarten(arr){
+  if (typeof arr.GRADE_ORG === 'number') { 
+     return  arr.GRADE_LEVEL < 1;
+  }
+  else{
+    return  arr.GRADE_LEVEL.toUpperCase().indexOf('K') >= 0;
+  }
+}
+
+function element(arr){
+  if (typeof arr.GRADE_ORG === 'number') { 
+     return  1< arr.GRADE_LEVEL < 6;
+  }
+  else{
+    return  arr.GRADE_LEVEL.toUpperCase().indexOf('ELEM') >= 0;
+  }
+}
+
+function middleschool(arr){
+  if (typeof arr.GRADE_ORG === 'number') { 
+     return  5< arr.GRADE_LEVEL < 9;
+  }
+  else{
+    return  arr.GRADE_LEVEL.toUpperCase().indexOf('MID') >= 0;
+  }
+}
+
+function highschool(arr){
+  if (typeof arr.GRADE_ORG === 'number') { 
+     return  8< arr.GRADE_LEVEL < 13;
+  }
+  else{
+    return  arr.GRADE_LEVEL.toUpperCase().indexOf('HIGH') >= 0;
+  }
+}
+
+//var schools_type = _.map(schools_clean, function(arr){
+//    if (typeof arr.GRADE_ORG === 'number') {  
+//      arr.HAS_KIN_ELE = arr.GRADE_LEVEL < 6;
+//      arr.HAS_MIDDLE_SCHOOL = 5 < arr.GRADE_LEVEL < 9;
+//      arr.HAS_HIGH_SCHOOL = 8 < arr.GRADE_LEVEL < 13;
+//    } else {  
+//      arr.HAS_KIN_ELE = (arr.GRADE_LEVEL.toUpperCase().indexOf('K') >= 0 || 
+//                         arr.GRADE_LEVEL.toUpperCase().indexOf('ELEM') >= 0);
+//      arr.HAS_MIDDLE_SCHOOL = arr.GRADE_LEVEL.toUpperCase().indexOf('MID') >= 0;
+//      arr.HAS_HIGH_SCHOOL = arr.GRADE_LEVEL.toUpperCase().indexOf('HIGH') >= 0;
+//    }
+//    return arr;
+//})
 
   // filter data
-var filtered_data = _.filter(schools_type, function(arr){
+var filtered_data = _.filter(schools_clean, function(arr){
     isOpen = arr.ACTIVE.toUpperCase() == 'OPEN';
-    isSchool = (arr.HAS_KIN_ELE ||
-                arr.HAS_MIDDLE_SCHOOL ||
-                arr.HAS_HIGH_SCHOOL);
+    isSchool = (kindergarten(arr) ||
+                element(arr) ||
+                middleschool(arr) ||
+                highschool(arr));
     meetsMinimumEnrollment = arr.ENROLLMENT > minEnrollment;
     meetsZipCondition = acceptedZipcodes.indexOf(arr.ZIPCODE) >= 0;
     filter_condition = (isOpen &&
@@ -77,9 +114,9 @@ var filtered_data = _.filter(schools_type, function(arr){
 
 function changecolor(arr){
     var color;
-    if (arr.HAS_HIGH_SCHOOL){
+    if (highschool(arr)){
       color = '#0000FF';
-    } else if (arr.HAS_MIDDLE_SCHOOL) {
+    } else if (middleschool(arr)) {
       color = '#00FF00';
     } else {
       color = '##FF0000';
