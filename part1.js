@@ -1,83 +1,82 @@
 /* =====================
-# Lab 1, Part 1 — Function Review
+# Lab 2, Part 1 — Underscore Selection
+
+## Introduction
+
+Set variables "query1" through "query8" by using an underscore function to answer the specified question.
+When you are finished, check your browser's console log to test the results.
+
+For datan all of the queries, use the following two lists of board games.
 ===================== */
+
+var jeffGameList = ["chess", "monopoly", "sorry", "pandemic", "candyland"];
+console.log('Jeff\'s list', jeffGameList);
+
+var nathanGameList = ["chess", "dice", "catan", "pandemic"];
+console.log('Nathan\'s list', nathanGameList);
 
 /* =====================
-Instructions: "Write a function that adds one to the number provided"
-Example: "plusOne(2) should return 3"
+What is the first game in Jeff's list?
 ===================== */
-//var i = 2;
-//function plusOne(i) {return i + 1};
 
-function plusOne(i) {return i + 1};
+var query1 = _.first(jeffGameList); //find the underscore function that allows you to find 'chess'
 
-var double = function(num) {
-   return num * 2;
-};
-
-console.log(double(3));
-
-
-
-
-
-function sayHello(name, age) {
-            console.log(name + " is " + age + " years old.");
-         }
-
-
-
-console.log('plusOne success:', plusOne(99) === 100);
+console.log('What is the first game in Jeff\'s list?', query1);
 
 /* =====================
-Instructions: "Write a function, age, that takes a birth year and returns an age in years."
-(Let's just assume this person was born January 1 at 12:01 AM)
-Example: "age(2000) should return 18"
+What are all of the games except for the first game in Jeff's list?
 ===================== */
 
-var age = function(birth) {};
+var query2 = _.rest(jeffGameList);
 
-console.log('age success:', age(1971) === 46);
-
-
+console.log('What are all of the games except for the first game in Jeff\'s list?', query2);
 
 /* =====================
-Instructions: "Write a function that returns true for numbers over 9000 and false otherwise"
-Example: "over9000(22) should return false"
+What is the last game in Nathan's list?
 ===================== */
 
-var over9000 = function() {};
+var query3 = _.last(jeffGameList);
 
-console.log('over9000 success:', over9000(9001) === true && over9000(12) === false);
+console.log('What is the last game in Nathan\'s list?', query3);
 
 /* =====================
-Instructions: "Write a function that returns the value of an object at a specified key"
-Example: "valueAtKey({'name': 'Nathan'}, 'name') should return 'Nathan'"
+What are all of the games in Nathan's list except for the last?
 ===================== */
-//updated with Sara
-var valueAtKey = function(obj,key) {
-var value = obj[key];
-return value;
-};
 
-console.log('valueAtKey success:', valueAtKey({'foo': 'bar'}, 'foo') === 'bar');
+var query4 = _.first(jeffGameList, [_.size(jeffGameList) - 1]);
 
+console.log('What are all of the games in Nathan\'s list except for the last?', query4);
 
 /* =====================
-Instructions: "Write a function which returns the y coordinate of a line given m, x, and b"
-Example: "y(0, 0, 0) should return 0; y(1, 1, 1) should return 2"
-Remember: The standard mathematical expression for such a function is y=mx+b
+What would Nathan's game list look like if he sold "catan"?
 ===================== */
 
-var y = function() {};
+var query5 = _.without(jeffGameList, "catan");
 
-console.log('y success:', y(12, 1, 12) === 24);
+console.log('What would Nathan\'s game list look like if he sold "catan"?', query5);
 
 /* =====================
-Instructions: "Write a function which counts the number of times a value occurs in an array "
-Example: "countItem(['a', 'b', 'a'], 'a') should return 2"
+If Nathan and Jeff play a board game, what are their options? This should be a list of all games owned by Jeff or Nathan, with no duplicates.
 ===================== */
 
-var countItem = function() {};
+var query6 = _.union(jeffGameList, nathanGameList);
 
-console.log('countItem success:', countItem([1, 2, 3, 4, 5, 4, 4], 4) === 3);
+console.log('If Nathan and Jeff play a board game, what are their options? This should be a list of all games owned by Jeff or Nathan, with no duplicates.', query6);
+
+/* =====================
+Which games are owned by both Jeff and Nathan?
+===================== */
+
+var query7 = _.intersection(jeffGameList, nathanGameList);
+
+console.log('Which games are owned by both Jeff and Nathan', query7);
+
+/* =====================
+Which games are exclusive to collections? In other words, only owned by either Jeff or Nathan.
+===================== */
+
+var query9 = _.difference(jeffGameList, nathanGameList).concat(_.difference(nathanGameList, jeffGameList));
+
+// more elegant solution using two functions... var query8 = _.union(jeffGameList, nathanGameList) _.intersection(jeffGameList, nathanGameList);
+
+console.log('Which games are exclusive to one collection? In other words, only owned by either Jeff or Nathan (but not both!).', query8);
