@@ -1,0 +1,25 @@
+_.filter(schools, function(s){return typeof s.GRADE_ORG !== 'string'}) // filter out school 不是string的 看一看
+
+function(s){
+if(typeof s.GRADE_ORG !== 'string'){
+// do something
+}else{
+return s.GRADE_LEVEL.toUpperCase().indexOf('K')>=0
+}
+}
+
+var hasKindergarten = function(s){
+if(typeof s.GRADE_ORG !== 'string'){
+// do something
+return s.GRADE_LEVEL < 1
+}else{
+return s.GRADE_LEVEL.toUpperCase().indexOf('K')>=0
+}
+}
+
+hasKindergarten(school[0]) //看一看是啥效果
+_.filter(schools，hasKindergarten）
+
+var hasHSorKG = function(s){
+return hasHighSchool(s) && hasKindergarten(s)
+}
