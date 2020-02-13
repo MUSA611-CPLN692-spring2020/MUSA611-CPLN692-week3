@@ -18,6 +18,7 @@
   // Filter according to enrollment that is greater than this variable:
   var minEnrollment = 300;
 
+/*
   // clean the data
     var school2 = _.map(schools,function(zip) {
       if(typeof zip.ZIPCODE === 'string') {
@@ -41,12 +42,75 @@
     return zip})
 
     console.log(school2)
+*/
+
+//cleandata
+var cleandata = function(x){
+  if(typeof x.ZIPCODE === 'string') {
+  var split = x.ZIPCODE.split(' ');
+  var normalized_zip = parseInt(split[0]);
+  x.ZIPCODE = normalized_zip;
+}return x}
+
+//has kindergarten function
+
+var hasKindergarten = function(s){
+  if (typeof s.GRADE_ORG !=='string'){
+   s.HAS_KINDERGARTEN = s.GRADE_LEVEL < 1;
+  }else{
+  s.HAS_KINDERGARTEN = s.GRADE_LEVEL.toUpperCase().indexOf('K') >= 0;
+ } return s
+}
+
+
+//haselemntary
+var hasElementary = function(s){
+  if (typeof s.GRADE_ORG !=='string'){
+    s.HAS_ELEMENTARY= 1 < s.GRADE_LEVEL < 6;
+  }else{
+    s.HAS_ELEMENTARY = s.GRADE_LEVEL.toUpperCase().indexOf('ELEM') >= 0;
+ } return s
+}
+
+//hasmiddle
+var hasMiddle = function(s){
+  if (typeof s.GRADE_ORG !=='string'){
+   s.HAS_MIDDLE_SCHOOL= 5 < s.GRADE_LEVEL < 9;
+  }else{
+  s.HAS_MIDDLE_SCHOOL = s.GRADE_LEVEL.toUpperCase().indexOf('MID') >= 0;
+  }
+  return s
+}
+
+//hasHigh
+var hasHigh = function(s){
+  if (typeof s.GRADE_ORG !=='string'){
+   s.HAS_HIGH_SCHOOL = 8 < s.GRADE_LEVEL < 13;
+  }else{
+    s.HAS_HIGH_SCHOOL  = s.GRADE_LEVEL.toUpperCase().indexOf('HIGH') >= 0;
+  }
+  return s
+}
+
+var school2 = _.map(schools,function(y){
+  var clean = cleandata(y);
+  var first = hasKindergarten(clean);
+  var second = hasElementary(first);
+  var third = hasMiddle(second);
+ return  hasHigh(third);
+})
+
+console.log(school2)
+
+
+
+// var hasHSorKG = function(s){return hasHisghSchool(s) && hasKindergarten(s)}
 
 
   // filter data
   var filtered_data = [];
   var filtered_out = [];
-
+/*
   var school3 = _.filter(school2,function(eachone){
   //for (var i = 0; i < schools.length - 1; i++) {
     // These really should be predicates!
@@ -73,9 +137,29 @@
   })
 
 console.log(school3)
+*/
 
-  console.log('Included:', filtered_data.length);
-  console.log('Excluded:', filtered_out.length);
+var isOpen = function (o){return o.ACTIVE.toUpperCase() == 'OPEN'};
+var isPublic = function (o){return o.TYPE.toUpperCase() !== 'CHARTER' ||
+            o.TYPE.toUpperCase() !== 'PRIVATE'}
+var isSchool = function(o){return o.HAS_KINDERGARTEN ||
+            o.HAS_ELEMENTARY ||
+            o.HAS_MIDDLE_SCHOOL ||
+            o.HAS_HIGH_SCHOOL;
+          }
+var minenroll = function(o){return o.ENROLLMENT > minEnrollment;}
+var zipcondition = function (o){return acceptedZipcodes.indexOf(o.ZIPCODE) >= 0;}
+
+var filtercond = function(o){return isOpen(o)&&isPublic(o)&&isSchool(o)&&minenroll(o)&&!zipcondition(o)}
+var filterout = function(o){return !filtercond(o)}
+
+var school3 = _.filter(school2,function(y){return filtercond(y)})
+
+console.log(school3);
+
+//  console.log('Included:', filtered_data.length);
+//  console.log('Excluded:', filtered_out.length);
+
 
   // main loop
   var color;
@@ -102,5 +186,7 @@ console.log(school3)
       .bindPopup(final.FACILNAME_LABEL)
       .addTo(map);
   })
+
+
 
 })();
