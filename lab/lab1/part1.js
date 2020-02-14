@@ -49,52 +49,13 @@ console.log('y success:', y(12, 1, 12) === 24);
 Instructions: "Write a function which counts the number of times a value occurs in an array "
 Example: "countItem(['a', 'b', 'a'], 'a') should return 2"
 ===================== */
-
-var countItem = function(arry,num) {var i = 0;};
+//Method 1
+var countItem = function(arry,num) {
+  return arry.filter(v=>v===num).length
+};
+// simple
+function getOccurrence(array, value) {
+    return array.filter((v) => (v === value)).length;
+}
 
 console.log('countItem success:', countItem([1, 2, 3, 4, 5, 4, 4], 4) === 3);
-
-
-/* =====================
-TAKEAWAY:
-
-var returnAddFunction=function(num1){
-  var theFunction=function(num2){
-    return num1+num2
-  }
-  return theFunction
-}
-
-returnAddFunction(5)
-returnAddFunction(5)(2)
-
-var fmap=function(arr,func){
-  var holder= [];
-  for (i=0; i< arr.length; i++){
-    holder.push(func(arr[i]))
-}
-return holder
-}
-
-for (i=0; i<mylist.length; i++){
-  if (mylist[i] % 2==0){
-    holder.push(mylist[i])
-}
-}
-
-var isEven = function(num){
-  return num % 2 == 0
-}
-
-var filter = function(arr,pred) {
-  var holder = []
-  for (var i =0; i < arr.length; i++){
-    if (pred(arr[i])) {holder.push(arr[i])}
-  }
-  return holder
-}
-
-? inline function?
-(function(){return 4})()
-
-===================== */
