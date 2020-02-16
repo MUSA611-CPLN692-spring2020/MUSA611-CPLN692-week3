@@ -29,9 +29,37 @@
   var acceptedZipcodes = [19106, 19107, 19124, 19111, 19118];
   // Filter according to enrollment that is greater than this variable:
   var minEnrollment = 300;
-
+/*
+  function getzipcode(school) {
+    console.log(school.ZIPCODE)
+  }
+  _.each(schools, getzipcode)
+*/
 
   // clean data
+  _.each(schools, function(school){
+    if (typeof school.ZIPCODE === 'string') {
+      _.first(school.ZIPCODE.split(''));
+    }
+  });
+
+  _.each(schools, function(school){
+    if (typeof school.GRADE_ORG === 'number') {
+      school.HAS_KINDERGARTEN = school.GRADE_LEVEL < 1;
+      school.HAS_ELEMENTARY = 1 < school.GRADE_LEVEL < 6;
+      school.HAS_MIDDLE_SCHOOL = 5 < school.GRADE_LEVEL < 9;
+      school.HAS_HIGH_SCHOOL = 8 < school.GRADE_LEVEL < 13;
+    } else {  // otherwise (in case of string)
+      school.HAS_KINDERGARTEN = school.GRADE_LEVEL.toUpperCase().indexOf('K') >= 0;
+      school.HAS_ELEMENTARY = school.GRADE_LEVEL.toUpperCase().indexOf('ELEM') >= 0;
+      school.HAS_MIDDLE_SCHOOL = school.GRADE_LEVEL.toUpperCase().indexOf('MID') >= 0;
+      school.HAS_HIGH_SCHOOL = school.GRADE_LEVEL.toUpperCase().indexOf('HIGH') >= 0;
+    }
+  });
+
+
+
+/*
   for (var i = 0; i < schools.length - 1; i++) {
     // If we have '19104 - 1234', splitting and taking the first (0th) element
     // as an integer should yield a zip in the format above
@@ -40,6 +68,7 @@
       normalized_zip = parseInt(split[0]);
       schools[i].ZIPCODE = normalized_zip;
     }
+
 
     // Check out the use of typeof here — this was not a contrived example.
     // Someone actually messed up the data entry
@@ -55,10 +84,35 @@
       schools[i].HAS_HIGH_SCHOOL = schools[i].GRADE_LEVEL.toUpperCase().indexOf('HIGH') >= 0;
     }
   }
+*/
 
   // filter data
   var filtered_data = [];
   var filtered_out = [];
+
+  _.each(schools, function(school){
+    isOpen = school.ACTIVE.toUpperCase() == 'OPEN';
+    isPublic = (school.TYPE.toUpperCase() !== 'CHARTER' ||
+                school.TYPE.toUpperCase() !== 'PRIVATE');
+    isSchool = (school.HAS_KINDERGARTEN ||
+                school.HAS_ELEMENTARY ||
+                school.HAS_MIDDLE_SCHOOL ||
+                school.HAS_HIGH_SCHOOL);
+    meetsMinimumEnrollment = school.ENROLLMENT > minEnrollment;
+    meetsZipCondition = acceptedZipcodes.indexOf(school.ZIPCODE) >= 0;
+    filter_condition = (isOpen &&
+                        isSchool &&
+                        meetsMinimumEnrollment &&
+                        !meetsZipCondition);
+
+    if (filter_condition) {
+      filtered_data.push(school);
+    } else {
+      filtered_out.push(school);
+    }
+  });
+
+/*
   for (var i = 0; i < schools.length - 1; i++) {
     isOpen = schools[i].ACTIVE.toUpperCase() == 'OPEN';
     isPublic = (schools[i].TYPE.toUpperCase() !== 'CHARTER' ||
@@ -80,11 +134,37 @@
       filtered_out.push(schools[i]);
     }
   }
+*/
   console.log('Included:', filtered_data.length);
   console.log('Excluded:', filtered_out.length);
 
+//  console.log(filtered_data);
+
   // main loop
-  var color;
+  var color
+  _.each(filtered_data, function(x){
+    isOpen = x.ACTIVE.toUpperCase() == 'OPEN';
+    isPublic = (x.TYPE.toUpperCase() !== 'CHARTER' ||
+                x.TYPE.toUpperCase() !== 'PRIVATE');
+    meetsMinimumEnrollment = x.ENROLLMENT > minEnrollment;
+
+    // Constructing the styling  options for our map
+    if (x.HAS_HIGH_SCHOOL){
+      color = '#0000FF';
+    } else if (x.HAS_MIDDLE_SCHOOL) {
+      color = '#00FF00';
+    } else {
+      color = '##FF0000';
+    }
+    // The style options
+    var pathOpts = {'radius': x.ENROLLMENT / 30,
+                    'fillColor': color};
+    L.circleMarker([x.Y, x.X], pathOpts)
+      .bindPopup(x.FACILNAME_LABEL)
+      .addTo(map);
+  });
+
+/*
   for (var i = 0; i < filtered_data.length - 1; i++) {
     isOpen = filtered_data[i].ACTIVE.toUpperCase() == 'OPEN';
     isPublic = (filtered_data[i].TYPE.toUpperCase() !== 'CHARTER' ||
@@ -106,5 +186,5 @@
       .bindPopup(filtered_data[i].FACILNAME_LABEL)
       .addTo(map);
   }
-
+*/
 })();

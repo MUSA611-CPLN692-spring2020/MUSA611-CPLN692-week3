@@ -28,6 +28,12 @@ Calculate the value by using _.countBy and set your answer to variable "largeSta
 
 var data = bikeArrayClean;
 
-var largeStationList;
+var largeStationList = _.filter(data, function(arrofarr) {
+  return arrofarr[3] > 20;
+});
+console.log(largeStationList);
 
-var largeStationCount;
+var largeStationCount = _.countBy(data, function(arrofarr) {
+  return arrofarr[3] > 20 ? 'large':'small';
+});
+console.log(largeStationCount);
